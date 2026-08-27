@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Nexora</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Arial,sans-serif;background:radial-gradient(circle at 50% 35%,#252a3b,#080b13 65%);color:#fff;min-height:100vh;overflow:hidden}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:16px 14px 20px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:24px;font-weight:800;letter-spacing:1px}
+.level{font-size:13px;background:#171c2a;border:1px solid #30374b;padding:8px 12px;border-radius:18px}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.card{background:#141927;border:1px solid #2b3245;border-radius:16px;padding:12px;text-align:center}
+.label{font-size:11px;color:#9ca6bd}.value{font-size:18px;font-weight:800;margin-top:4px}
+.balance{text-align:center;margin-top:18px}
+.balance .num{font-size:38px;font-weight:900}.balance small{color:#9ca6bd}
+.coin-wrap{display:flex;justify-content:center;align-items:center;flex:1;min-height:280px}
+.coin{width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff08a,#ffc400 35%,#d88700 70%,#6c3900);border:9px solid #ffdf55;box-shadow:0 0 25px #ffbf00,0 0 70px rgba(255,180,0,.35);display:flex;align-items:center;justify-content:center;user-select:none;touch-action:manipulation;transition:transform .08s}
+.coin:active{transform:scale(.94)}
+.coin-inner{width:178px;height:178px;border-radius:50%;border:5px solid #7b4300;background:radial-gradient(circle,#171b24,#080a10);display:flex;align-items:center;justify-content:center;font-size:100px;font-weight:900;color:#ffd21a;text-shadow:0 0 15px #ffb700}
+.energybox{background:#141927;border:1px solid #2b3245;border-radius:16px;padding:10px 14px}.energyrow{display:flex;justify-content:space-between;font-size:13px}.bar{height:9px;background:#292f3d;border-radius:9px;margin-top:8px;overflow:hidden}.fill{height:100%;width:100%;background:#ffc400;border-radius:9px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.tab{background:#141927;border:1px solid #2b3245;border-radius:14px;padding:11px 4px;text-align:center;font-size:11px;color:#dfe5f2}.icon{font-size:22px;display:block;margin-bottom:4px}
+.panel{position:fixed;inset:0;background:#0b0e17;padding:22px 16px;display:none;z-index:5}.panel h2{margin-top:0}.close{float:right;background:#22293a;border:0;color:#fff;border-radius:12px;padding:9px 12px}
+.row{background:#151a28;border:1px solid #2b3245;border-radius:14px;padding:14px;margin:8px 0;display:flex;justify-content:space-between}
+.pop{position:fixed;pointer-events:none;font-size:24px;font-weight:900;color:#ffe36a;animation:up .7s ease-out forwards}
+@keyframes up{to{transform:translateY(-100px);opacity:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">NEXORA</div><div class="level">⭐ Level <span id="level">1</span></div></div>
+
+  <div class="stats">
+    <div class="card"><div class="label">PER TAP</div><div class="value">+<span id="perTap">1</span> NEX</div></div>
+    <div class="card"><div class="label">TO LEVEL UP</div><div class="value" id="next">1K</div></div>
+    <div class="card"><div class="label">PER HOUR</div><div class="value">0</div></div>
+  </div>
+
+  <div class="balance"><div class="num" id="balance">0</div><small>NEXORA COIN</small></div>
+
+  <div class="coin-wrap">
+    <div class="coin" id="coin"><div class="coin-inner">N</div></div>
+  </div>
+
+  <div class="energybox">
+    <div class="energyrow"><span>⚡ Energy</span><span><b id="energy">1000</b> / 1000</span></div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab" onclick="openPanel('upgrade')"><span class="icon">🚀</span>Upgrade</button>
+    <button class="tab" onclick="openPanel('missions')"><span class="icon">📋</span>Missions</button>
+    <button class="tab" onclick="openPanel('friends')"><span class="icon">👥</span>Friends</button>
+    <button class="tab" onclick="openPanel('wallet')"><span class="icon">💼</span>Wallet</button>
+  </div>
+</div>
+
+<div id="upgrade" class="panel"><button class="close" onclick="closePanel()">Close</button><h2>🚀 Upgrades</h2><div class="row"><span>Tap Power</span><button onclick="upgrade()">Upgrade 100 NEX</button></div><p>Each upgrade increases your points per tap.</p></div>
+<div id="missions" class="panel"><button class="close" onclick="closePanel()">Close</button><h2>📋 Missions</h2><div class="row"><span>Tap 100 times</span><b>+100 NEX</b></div><div class="row"><span>Come back tomorrow</span><b>Daily reward</b></div></div>
+<div id="friends" class="panel"><button class="close" onclick="closePanel()">Close</button><h2>👥 Friends</h2><p>Referral system will be connected to the bot backend in the next version.</p></div>
+<div id="wallet" class="panel"><button class="close" onclick="closePanel()">Close</button><h2>💼 Wallet</h2><p>Your NEX balance is currently an in-game point. It is not a blockchain asset or real-money balance.</p></div>
+
+<script>
+const tg=window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();}
+let state=JSON.parse(localStorage.getItem("nexora_state")||'{"balance":0,"energy":1000,"level":1,"perTap":1,"taps":0}');
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem("nexora_state",JSON.stringify(state));render()}
+function render(){
+ $("balance").textContent=Math.floor(state.balance).toLocaleString();
+ $("energy").textContent=Math.floor(state.energy);
+ $("fill").style.width=(state.energy/1000*100)+"%";
+ $("level").textContent=state.level;
+ $("perTap").textContent=state.perTap;
+ $("next").textContent=Math.max(1000-state.balance%1000,0).toLocaleString();
+}
+function tap(e){
+ if(state.energy<=0)return;
+ state.balance+=state.perTap;state.energy--;state.taps++;
+ if(state.taps%100===0){state.balance+=100;}
+ const p=document.createElement("div");p.className="pop";p.textContent="+"+state.perTap+" NEX";
+ p.style.left=(e.clientX||innerWidth/2)+"px";p.style.top=(e.clientY||innerHeight/2)+"px";document.body.appendChild(p);setTimeout(()=>p.remove(),700);
+ save();
+}
+$("coin").addEventListener("pointerdown",tap);
+setInterval(()=>{if(state.energy<1000){state.energy=Math.min(1000,state.energy+1);save()}},1000);
+function upgrade(){if(state.balance>=100){state.balance-=100;state.perTap++;state.level++;save();}}
+function openPanel(id){document.getElementById(id).style.display="block"}
+function closePanel(){document.querySelectorAll(".panel").forEach(x=>x.style.display="none")}
+render();
+</script>
+</body>
+</html>
