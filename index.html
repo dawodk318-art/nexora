@@ -1,583 +1,437 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Nexora</title>
-
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+body{
+margin:0;
+background:#05080e;
+color:#fff;
+font-family:Arial,sans-serif;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #05080d;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+button{
+font-family:inherit;
 }
 
-body {
-    overflow-x: hidden;
+.app{
+max-width:520px;
+margin:auto;
+min-height:100vh;
+padding:14px;
+padding-bottom:25px;
+background:
+radial-gradient(circle at 50% 40%,rgba(255,190,0,.13),transparent 32%),
+linear-gradient(#0a0e16,#05080e);
 }
 
-.app {
-    width: 100%;
-    max-width: 520px;
-    min-height: 100vh;
-    margin: auto;
-    padding: 14px 14px 25px;
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(255, 183, 0, 0.13),
-            transparent 32%
-        ),
-        linear-gradient(
-            180deg,
-            #0a0e16 0%,
-            #05080d 100%
-        );
+/* TOP */
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
 }
 
-/* ================= TOP ================= */
-
-.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+.profile{
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
 }
 
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.avatar{
+width:56px;
+height:56px;
+border-radius:17px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+background:linear-gradient(145deg,#29364a,#101722);
+border:1px solid #39475b;
 }
 
-.avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 17px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #29364a,
-            #101722
-        );
-
-    border: 1px solid #39475b;
+.username{
+font-size:18px;
+font-weight:800;
 }
 
-.username {
-    font-size: 19px;
-    font-weight: 800;
+.level{
+margin-top:6px;
+font-size:13px;
+color:#ffd02a;
 }
 
-.level {
-    margin-top: 6px;
-    color: #ffc928;
-    font-size: 13px;
+.reward{
+min-width:145px;
+padding:10px;
+border-radius:17px;
+display:flex;
+gap:8px;
+align-items:center;
+background:linear-gradient(145deg,#182130,#0e141d);
+border:1px solid #354153;
+cursor:pointer;
 }
 
-.reward {
-    min-width: 145px;
-    padding: 10px 11px;
+.reward-icon{font-size:24px}
+.reward-title{font-size:12px;font-weight:bold}
+.reward-time{font-size:11px;color:#9da7b7;margin-top:4px}
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* STATS */
 
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #182130,
-            #0e141d
-        );
-
-    border: 1px solid #354153;
-
-    cursor: pointer;
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:14px;
 }
 
-.reward-icon {
-    font-size: 24px;
+.stat{
+padding:11px 4px;
+text-align:center;
+border-radius:16px;
+background:linear-gradient(145deg,#17202d,#0d131d);
+border:1px solid #344052;
 }
 
-.reward-title {
-    font-size: 12px;
-    font-weight: 800;
+.stat-label{
+font-size:10px;
+color:#929cac;
+font-weight:bold;
 }
 
-.reward-time {
-    margin-top: 4px;
-    font-size: 11px;
-    color: #9da7b7;
+.stat-value{
+margin-top:7px;
+font-size:16px;
+font-weight:900;
 }
 
-/* ================= STATS ================= */
+/* BALANCE */
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 14px;
+.balance{
+text-align:center;
+margin-top:17px;
 }
 
-.stat {
-    min-height: 76px;
-    padding: 11px 5px;
-
-    text-align: center;
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #17202d,
-            #0d131d
-        );
-
-    border: 1px solid #344052;
+.balance-number{
+font-size:43px;
+font-weight:900;
 }
 
-.stat-label {
-    color: #929cac;
-    font-size: 10px;
-    font-weight: 700;
+.balance-title{
+color:#9ba4b2;
+font-size:15px;
+letter-spacing:1px;
+margin-top:5px;
 }
 
-.stat-value {
-    margin-top: 7px;
-    font-size: 17px;
-    font-weight: 900;
+/* COIN */
+
+.coin-area{
+height:305px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-/* ================= BALANCE ================= */
-
-.balance {
-    text-align: center;
-    margin-top: 17px;
+.coin{
+width:245px;
+height:245px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at 35% 25%,#fff19a,#ffd12a 25%,#f2a500 55%,#a75a00 78%,#633500);
+border:8px solid #ffda42;
+box-shadow:
+0 0 15px #ffbf00,
+0 0 35px rgba(255,188,0,.55),
+0 0 80px rgba(255,170,0,.22);
+cursor:pointer;
+user-select:none;
+transition:transform .08s;
 }
 
-.balance-number {
-    font-size: 43px;
-    font-weight: 900;
-    letter-spacing: -1px;
+.coin:active{
+transform:scale(.93);
 }
 
-.balance-title {
-    margin-top: 5px;
-    color: #9ba4b2;
-    font-size: 15px;
-    letter-spacing: 1px;
+.coin-inner{
+width:175px;
+height:175px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle,#202631,#0b0e14);
+border:5px solid #6c3b00;
 }
 
-/* ================= COIN ================= */
-
-.coin-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    min-height: 310px;
-    padding: 15px 0 10px;
+.coin-letter{
+font-size:105px;
+font-weight:1000;
+color:#ffd21a;
+text-shadow:2px 3px 0 #8a5100,0 0 15px #ffb700;
 }
 
-.coin {
-    width: 245px;
-    height: 245px;
+/* ENERGY */
 
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: relative;
-
-    background:
-        radial-gradient(
-            circle at 35% 25%,
-            #fff19a 0%,
-            #ffd12a 25%,
-            #f2a500 55%,
-            #a75a00 78%,
-            #633500 100%
-        );
-
-    border: 8px solid #ffda42;
-
-    box-shadow:
-        0 0 15px #ffbf00,
-        0 0 35px rgba(255, 188, 0, .55),
-        0 0 80px rgba(255, 170, 0, .22);
-
-    cursor: pointer;
-    user-select: none;
-
-    transition:
-        transform .08s ease;
+.energy{
+padding:13px 16px;
+border-radius:18px;
+background:linear-gradient(145deg,#17202d,#0d131c);
+border:1px solid #344052;
 }
 
-.coin:active {
-    transform: scale(.93);
+.energy-row{
+display:flex;
+justify-content:space-between;
+font-size:14px;
 }
 
-.coin::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 13px;
-
-    border-radius: 50%;
-
-    border: 3px solid rgba(255,235,130,.9);
-
-    box-shadow:
-        inset 0 0 20px rgba(0,0,0,.65);
+.energy-bar{
+height:11px;
+margin-top:9px;
+background:#29313e;
+border-radius:20px;
+overflow:hidden;
 }
 
-.coin-inner {
-    width: 175px;
-    height: 175px;
-
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: relative;
-    z-index: 2;
-
-    background:
-        radial-gradient(
-            circle,
-            #202631 0%,
-            #0b0e14 72%
-        );
-
-    border: 5px solid #6c3b00;
+.energy-fill{
+height:100%;
+width:100%;
+background:linear-gradient(90deg,#ffb900,#ffe15b);
 }
 
-.coin-letter {
-    font-size: 105px;
-    line-height: 1;
-    font-weight: 1000;
+/* MENU */
 
-    color: #ffd21a;
-
-    text-shadow:
-        2px 3px 0 #8a5100,
-        0 0 15px #ffb700;
+.menu{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:12px;
 }
 
-/* ================= ENERGY ================= */
-
-.energy {
-    padding: 13px 16px;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #17202d,
-            #0d131c
-        );
-
-    border: 1px solid #344052;
+.menu-button{
+min-height:96px;
+border-radius:17px;
+background:linear-gradient(145deg,#17202d,#0c121b);
+border:1px solid #344052;
+color:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer;
 }
 
-.energy-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    font-size: 14px;
+.menu-button:active{
+transform:scale(.95);
 }
 
-.energy-left {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+.menu-icon{
+font-size:30px;
+margin-bottom:7px;
 }
 
-.energy-icon {
-    font-size: 21px;
+.menu-text{
+font-size:12px;
+font-weight:bold;
 }
 
-.energy-bar {
-    height: 11px;
+/* BOTTOM */
 
-    margin-top: 9px;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    background: #29313e;
+.bottom{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:10px;
 }
 
-.energy-fill {
-    height: 100%;
-    width: 100%;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffb900,
-            #ffe15b
-        );
-
-    transition: width .15s;
+.bottom-button{
+padding:14px 5px;
+text-align:center;
+border-radius:16px;
+background:linear-gradient(145deg,#17202d,#0c121b);
+border:1px solid #344052;
+font-size:13px;
+cursor:pointer;
 }
 
-/* ================= MENU ================= */
+/* POPUP */
 
-.menu {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 8px;
-
-    margin-top: 12px;
+.popup{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:rgba(0,0,0,.8);
+z-index:100;
 }
 
-.menu-button {
-    min-height: 96px;
-
-    border-radius: 17px;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #17202d,
-            #0c121b
-        );
-
-    border: 1px solid #344052;
-
-    color: white;
-
-    cursor: pointer;
-
-    transition:
-        transform .08s ease;
+.popup-box{
+width:100%;
+max-width:390px;
+max-height:90vh;
+overflow:auto;
+padding:22px;
+border-radius:23px;
+background:linear-gradient(145deg,#182130,#0c121b);
+border:1px solid #3a4658;
 }
 
-.menu-button:active {
-    transform: scale(.95);
+.popup-title{
+margin:0 0 15px;
+font-size:22px;
 }
 
-.menu-icon {
-    font-size: 30px;
-    margin-bottom: 7px;
+.close{
+width:100%;
+margin-top:15px;
+padding:13px;
+border:0;
+border-radius:14px;
+background:#293548;
+color:white;
+font-size:15px;
 }
 
-.menu-text {
-    font-size: 12px;
-    font-weight: 700;
+.action{
+width:100%;
+padding:13px;
+border:0;
+border-radius:13px;
+background:#f5b900;
+color:#111;
+font-weight:bold;
+margin-top:10px;
 }
 
-/* ================= BOTTOM ================= */
-
-.bottom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 8px;
-
-    margin-top: 10px;
+.input{
+width:100%;
+padding:13px;
+border-radius:13px;
+border:1px solid #3c4759;
+background:#0d131c;
+color:white;
+font-size:16px;
+outline:none;
 }
 
-.bottom-button {
-    padding: 14px 5px;
-
-    text-align: center;
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #17202d,
-            #0c121b
-        );
-
-    border: 1px solid #344052;
-
-    font-size: 13px;
-
-    cursor: pointer;
+.avatar-list{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:12px;
 }
 
-/* ================= POPUP ================= */
-
-.popup {
-    position: fixed;
-
-    inset: 0;
-
-    display: none;
-
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.78);
-
-    z-index: 999;
+.avatar-choice{
+height:58px;
+border-radius:14px;
+border:1px solid #354153;
+background:#121a26;
+font-size:28px;
+cursor:pointer;
 }
 
-.popup-box {
-    width: 100%;
-    max-width: 370px;
-
-    padding: 25px;
-
-    text-align: center;
-
-    border-radius: 23px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #182130,
-            #0c121b
-        );
-
-    border: 1px solid #3a4658;
+.avatar-choice.selected{
+border:2px solid #ffd029;
+background:#272515;
 }
 
-.popup-title {
-    margin: 0 0 10px;
-
-    font-size: 23px;
+.referral{
+background:#0c131d;
+border:1px solid #344052;
+border-radius:14px;
+padding:13px;
+margin:10px 0;
+word-break:break-all;
+color:#dfe5ef;
 }
 
-.popup-text {
-    color: #aeb7c5;
-    line-height: 1.5;
+.mission{
+padding:13px;
+border-radius:14px;
+background:#101824;
+border:1px solid #303c4e;
+margin-bottom:9px;
 }
 
-.close-button {
-    width: 100%;
-
-    margin-top: 18px;
-
-    padding: 13px;
-
-    border: 0;
-
-    border-radius: 14px;
-
-    background: #283446;
-
-    color: white;
-
-    font-size: 15px;
+.mission-title{
+font-weight:bold;
 }
 
-/* ================= TAP EFFECT ================= */
-
-.tap-number {
-    position: fixed;
-
-    pointer-events: none;
-
-    z-index: 1000;
-
-    color: #ffd72a;
-
-    font-size: 27px;
-
-    font-weight: 900;
-
-    animation:
-        tapUp .75s ease-out forwards;
+.mission-progress{
+font-size:12px;
+color:#a5afbf;
+margin-top:6px;
 }
 
-@keyframes tapUp {
-
-    0% {
-        opacity: 1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
-
-    100% {
-        opacity: 0;
-        transform:
-            translateY(-95px)
-            scale(1.25);
-    }
+.mission-reward{
+color:#ffd02a;
+margin-top:7px;
 }
 
-/* ================= SMALL PHONES ================= */
+.tap-number{
+position:fixed;
+pointer-events:none;
+color:#ffd72a;
+font-size:27px;
+font-weight:900;
+z-index:1000;
+animation:up .75s ease-out forwards;
+}
 
-@media(max-width:390px) {
+@keyframes up{
+to{
+transform:translateY(-95px) scale(1.2);
+opacity:0;
+}
+}
 
-    .reward {
-        min-width: 132px;
-    }
+@media(max-width:390px){
 
-    .coin {
-        width: 220px;
-        height: 220px;
-    }
+.reward{
+min-width:130px;
+}
 
-    .coin-inner {
-        width: 158px;
-        height: 158px;
-    }
+.coin{
+width:220px;
+height:220px;
+}
 
-    .coin-letter {
-        font-size: 92px;
-    }
+.coin-inner{
+width:158px;
+height:158px;
+}
 
-    .coin-area {
-        min-height: 285px;
-    }
+.coin-letter{
+font-size:92px;
+}
 
-    .menu-button {
-        min-height: 88px;
-    }
+.coin-area{
+height:280px;
+}
 
-    .menu-icon {
-        font-size: 27px;
-    }
+.menu-button{
+min-height:88px;
+}
+
+.menu-icon{
+font-size:27px;
+}
 }
 </style>
 </head>
@@ -586,655 +440,963 @@ body {
 
 <div class="app">
 
-    <!-- TOP -->
+<div class="top">
 
-    <div class="top">
+<div class="profile" onclick="openProfile()">
 
-        <div class="profile">
+<div class="avatar" id="avatar">
+🙂
+</div>
 
-            <div class="avatar">
-                🥷
-            </div>
+<div>
 
-            <div>
+<div class="username" id="username">
+Player
+</div>
 
-                <div class="username" id="username">
-                    Dawood
-                </div>
+<div class="level">
+⭐ Level <span id="level">1</span>
+</div>
 
-                <div class="level">
-                    ⭐ Level
-                    <span id="level">
-                        1
-                    </span>
-                </div>
+</div>
 
-            </div>
+</div>
 
-        </div>
+<div class="reward" onclick="dailyReward()">
 
+<div class="reward-icon">🎁</div>
 
-        <div class="reward"
-             onclick="dailyReward()">
+<div>
+<div class="reward-title">Daily Reward</div>
+<div class="reward-time" id="rewardText">Claim →</div>
+</div>
 
-            <div class="reward-icon">
-                🎁
-            </div>
+</div>
 
-            <div>
+</div>
 
-                <div class="reward-title">
-                    Daily Reward
-                </div>
 
-                <div class="reward-time"
-                     id="rewardTimer">
-                    Ready →
-                </div>
+<div class="stats">
 
-            </div>
+<div class="stat">
+<div class="stat-label">PROFIT PER TAP</div>
+<div class="stat-value">🪙 +<span id="perTap">1</span></div>
+</div>
 
-        </div>
+<div class="stat">
+<div class="stat-label">TO LEVEL UP</div>
+<div class="stat-value" id="levelCost">1K</div>
+</div>
 
-    </div>
+<div class="stat">
+<div class="stat-label">PROFIT PER HOUR</div>
+<div class="stat-value">🪙 <span id="perHour">0</span></div>
+</div>
 
+</div>
 
-    <!-- STATS -->
 
-    <div class="stats">
+<div class="balance">
 
-        <div class="stat">
+<div class="balance-number" id="balance">
+0
+</div>
 
-            <div class="stat-label">
-                PROFIT PER TAP
-            </div>
+<div class="balance-title">
+NEXORA COIN
+</div>
 
-            <div class="stat-value">
-                🪙 +
-                <span id="perTap">
-                    1
-                </span>
-            </div>
+</div>
 
-        </div>
 
+<div class="coin-area">
 
-        <div class="stat">
+<div class="coin" id="coin">
 
-            <div class="stat-label">
-                TO LEVEL UP
-            </div>
+<div class="coin-inner">
 
-            <div class="stat-value"
-                 id="levelCost">
-                1K
-            </div>
+<div class="coin-letter">
+N
+</div>
 
-        </div>
+</div>
 
+</div>
 
-        <div class="stat">
+</div>
 
-            <div class="stat-label">
-                PROFIT PER HOUR
-            </div>
 
-            <div class="stat-value">
-                🪙
-                <span id="perHour">
-                    0
-                </span>
-            </div>
+<div class="energy">
 
-        </div>
+<div class="energy-row">
 
-    </div>
+<div>⚡ Energy</div>
 
+<div>
+<span id="energy">1000</span> / 1000
+</div>
 
-    <!-- BALANCE -->
+</div>
 
-    <div class="balance">
+<div class="energy-bar">
 
-        <div class="balance-number"
-             id="balance">
-            0
-        </div>
+<div class="energy-fill"
+id="energyFill">
+</div>
 
-        <div class="balance-title">
-            NEXORA COIN
-        </div>
+</div>
 
-    </div>
+</div>
 
 
-    <!-- COIN -->
+<div class="menu">
 
-    <div class="coin-area">
+<button class="menu-button" onclick="openUpgrade()">
+<span class="menu-icon">🚀</span>
+<span class="menu-text">Upgrade</span>
+</button>
 
-        <div class="coin"
-             id="coin">
+<button class="menu-button" onclick="openMissions()">
+<span class="menu-icon">📋</span>
+<span class="menu-text">Missions</span>
+</button>
 
-            <div class="coin-inner">
+<button class="menu-button" onclick="openFriends()">
+<span class="menu-icon">👥</span>
+<span class="menu-text">Friends</span>
+</button>
 
-                <div class="coin-letter">
-                    N
-                </div>
+<button class="menu-button" onclick="openWallet()">
+<span class="menu-icon">💼</span>
+<span class="menu-text">Wallet</span>
+</button>
 
-            </div>
+</div>
 
-        </div>
 
-    </div>
+<div class="bottom">
 
+<div class="bottom-button"
+onclick="openLeaderboard()">
+🏆 Leaderboard
+</div>
 
-    <!-- ENERGY -->
+<div class="bottom-button"
+onclick="openStatistics()">
+📊 Statistics
+</div>
 
-    <div class="energy">
-
-        <div class="energy-row">
-
-            <div class="energy-left">
-
-                <span class="energy-icon">
-                    ⚡
-                </span>
-
-                <span>
-                    Energy
-                </span>
-
-            </div>
-
-            <div>
-
-                <span id="energy">
-                    1000
-                </span>
-                / 1000
-
-            </div>
-
-        </div>
-
-
-        <div class="energy-bar">
-
-            <div class="energy-fill"
-                 id="energyFill">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- MAIN MENU -->
-
-    <div class="menu">
-
-        <button class="menu-button"
-                onclick="openPopup(
-                '🚀 Upgrade',
-                'Upgrade your Tap Power to earn more NEX per tap.'
-                )">
-
-            <span class="menu-icon">
-                🚀
-            </span>
-
-            <span class="menu-text">
-                Upgrade
-            </span>
-
-        </button>
-
-
-        <button class="menu-button"
-                onclick="openPopup(
-                '📋 Missions',
-                'Complete missions and earn additional NEX rewards.'
-                )">
-
-            <span class="menu-icon">
-                📋
-            </span>
-
-            <span class="menu-text">
-                Missions
-            </span>
-
-        </button>
-
-
-        <button class="menu-button"
-                onclick="openPopup(
-                '👥 Friends',
-                'Invite friends and earn referral rewards.'
-                )">
-
-            <span class="menu-icon">
-                👥
-            </span>
-
-            <span class="menu-text">
-                Friends
-            </span>
-
-        </button>
-
-
-        <button class="menu-button"
-                onclick="openPopup(
-                '💼 Wallet',
-                'Your NEXORA wallet will be available here.'
-                )">
-
-            <span class="menu-icon">
-                💼
-            </span>
-
-            <span class="menu-text">
-                Wallet
-            </span>
-
-        </button>
-
-    </div>
-
-
-    <!-- BOTTOM -->
-
-    <div class="bottom">
-
-        <div class="bottom-button"
-             onclick="openPopup(
-             '🏆 Leaderboard',
-             'The leaderboard will show the top NEXORA players.'
-             )">
-
-            🏆 Leaderboard
-
-        </div>
-
-
-        <div class="bottom-button"
-             onclick="openPopup(
-             '📊 Statistics',
-             'Your NEXORA statistics will appear here.'
-             )">
-
-            📊 Statistics
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
 <!-- POPUP -->
 
-<div class="popup"
-     id="popup">
+<div class="popup" id="popup">
 
-    <div class="popup-box">
+<div class="popup-box">
 
-        <h2 class="popup-title"
-            id="popupTitle">
-        </h2>
+<h2 class="popup-title" id="popupTitle"></h2>
 
-        <div class="popup-text"
-             id="popupText">
-        </div>
+<div id="popupContent"></div>
 
-        <button class="close-button"
-                onclick="closePopup()">
+<button class="close"
+onclick="closePopup()">
+Close
+</button>
 
-            Close
-
-        </button>
-
-    </div>
+</div>
 
 </div>
 
 
 <script>
 
-/* ================= TELEGRAM ================= */
+/* TELEGRAM */
 
 const tg =
-    window.Telegram &&
-    window.Telegram.WebApp;
+window.Telegram &&
+window.Telegram.WebApp;
 
-if (tg) {
-
-    tg.ready();
-
-    tg.expand();
-
+if(tg){
+tg.ready();
+tg.expand();
 }
 
 
-/* ================= GAME STATE ================= */
+/* PLAYER DATA */
 
 let state =
-    JSON.parse(
-        localStorage.getItem("nexora_state")
-        ||
-        JSON.stringify({
+JSON.parse(
+localStorage.getItem("nexora_state")
+||
+JSON.stringify({
 
-            balance: 0,
+name:"",
+avatar:"🙂",
 
-            energy: 1000,
+balance:0,
 
-            level: 1,
+energy:1000,
 
-            perTap: 1,
+level:1,
 
-            taps: 0,
+perTap:1,
 
-            lastReward: 0
+taps:0,
 
-        })
-    );
+dailyReward:0,
 
+missions:{
 
-/* ================= ELEMENTS ================= */
+tap100:false,
+tap500:false,
+daily:false
 
-const balance =
-    document.getElementById("balance");
+}
 
-const energy =
-    document.getElementById("energy");
-
-const energyFill =
-    document.getElementById("energyFill");
-
-const level =
-    document.getElementById("level");
-
-const perTap =
-    document.getElementById("perTap");
-
-const levelCost =
-    document.getElementById("levelCost");
-
-const username =
-    document.getElementById("username");
+})
+);
 
 
-/* ================= USER ================= */
+/* ELEMENTS */
 
-if (tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.user) {
+const $ =
+id => document.getElementById(id);
 
-    const user =
-        tg.initDataUnsafe.user;
 
-    username.textContent =
-        user.first_name ||
-        "Player";
+/* SAVE */
+
+function save(){
+
+localStorage.setItem(
+"nexora_state",
+JSON.stringify(state)
+);
+
+render();
 
 }
 
 
-/* ================= SAVE ================= */
+/* RENDER */
 
-function saveGame() {
+function render(){
 
-    localStorage.setItem(
-        "nexora_state",
-        JSON.stringify(state)
-    );
+$("balance").textContent =
+Math.floor(state.balance).toLocaleString();
+
+$("energy").textContent =
+Math.floor(state.energy);
+
+$("level").textContent =
+state.level;
+
+$("perTap").textContent =
+state.perTap;
+
+$("username").textContent =
+state.name || "Player";
+
+$("avatar").textContent =
+state.avatar;
+
+$("energyFill").style.width =
+(state.energy/1000*100)+"%";
+
+let cost =
+state.level * 1000;
+
+$("levelCost").textContent =
+cost >= 1000
+? (cost/1000)+"K"
+: cost;
+
+if(
+state.dailyReward &&
+Date.now()-state.dailyReward
+<86400000
+){
+
+$("rewardText").textContent =
+"Claimed ✓";
+
+}else{
+
+$("rewardText").textContent =
+"Claim →";
+
+}
 
 }
 
 
-/* ================= RENDER ================= */
+/* PROFILE */
 
-function render() {
+function openProfile(){
 
-    balance.textContent =
-        Math.floor(
-            state.balance
-        ).toLocaleString();
+let avatars=[
+"🙂","😎","🤖",
+"👽","🦊","🐯",
+"🐼","🦁","🐸",
+"🥷","👑","🚀"
+];
 
+let html=`
 
-    energy.textContent =
-        Math.floor(
-            state.energy
-        );
+<h2 class="popup-title">
+👤 Your Nexora Profile
+</h2>
 
+<input
+class="input"
+id="nameInput"
+maxlength="20"
+placeholder="Enter your name"
+value="${escapeHtml(state.name)}"
+>
 
-    level.textContent =
-        state.level;
+<div style="margin-top:14px;font-weight:bold">
+Choose Avatar
+</div>
 
+<div class="avatar-list">
+`;
 
-    perTap.textContent =
-        state.perTap;
+avatars.forEach(a=>{
 
+html+=`
 
-    const cost =
-        state.level * 1000;
+<button
+class="avatar-choice ${
+state.avatar===a
+?"selected":""
+}"
+onclick="chooseAvatar('${a}',this)">
+${a}
+</button>
 
+`;
 
-    levelCost.textContent =
-        cost >= 1000
-        ? (cost / 1000) + "K"
-        : cost;
+});
 
+html+=`
 
-    energyFill.style.width =
-        (state.energy / 1000 * 100)
-        + "%";
+</div>
+
+<button
+class="action"
+onclick="saveProfile()">
+Save Profile
+</button>
+`;
+
+openPopup(
+"Profile",
+html,
+false
+);
 
 }
 
 
-/* ================= TAP ================= */
+/* SAFE TEXT */
+
+function escapeHtml(text){
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* AVATAR */
+
+let selectedAvatar=null;
+
+function chooseAvatar(a,button){
+
+selectedAvatar=a;
 
 document
-.getElementById("coin")
+.querySelectorAll(".avatar-choice")
+.forEach(x=>
+x.classList.remove("selected")
+);
+
+button.classList.add("selected");
+
+}
+
+
+/* SAVE PROFILE */
+
+function saveProfile(){
+
+let name =
+$("nameInput").value.trim();
+
+if(!name){
+
+name="Player";
+
+}
+
+state.name=name;
+
+if(selectedAvatar){
+
+state.avatar=
+selectedAvatar;
+
+}
+
+save();
+
+closePopup();
+
+}
+
+
+/* DAILY REWARD */
+
+function dailyReward(){
+
+if(
+state.dailyReward &&
+Date.now()-state.dailyReward
+<86400000
+){
+
+openPopup(
+"🎁 Daily Reward",
+"<p>You already claimed today's reward.</p><p>Come back tomorrow!</p>"
+);
+
+return;
+
+}
+
+state.balance+=100;
+
+state.dailyReward=
+Date.now();
+
+state.missions.daily=true;
+
+save();
+
+openPopup(
+"🎁 Daily Reward",
+"<p>Congratulations!</p><p><b>+100 NEX</b> added to your balance.</p>"
+);
+
+}
+
+
+/* TAP */
+
+$("coin")
 .addEventListener(
-    "pointerdown",
-    function(event) {
+"pointerdown",
+function(e){
 
-        if (state.energy <= 0) {
+if(state.energy<=0)
+return;
 
-            return;
+state.balance+=
+state.perTap;
 
-        }
+state.energy--;
 
+state.taps++;
 
-        state.balance +=
-            state.perTap;
+if(
+state.taps>=100 &&
+!state.missions.tap100
+){
 
+state.balance+=100;
 
-        state.energy -= 1;
+state.missions.tap100=true;
 
+}
 
-        state.taps += 1;
+if(
+state.taps>=500 &&
+!state.missions.tap500
+){
 
+state.balance+=500;
 
-        /* Mission reward */
+state.missions.tap500=true;
 
-        if (
-            state.taps % 100 === 0
-        ) {
+}
 
-            state.balance += 100;
+let pop =
+document.createElement("div");
 
-        }
+pop.className=
+"tap-number";
 
+pop.textContent=
+"+"+state.perTap+" NEX";
 
-        /* Floating +NEX */
+pop.style.left=
+(e.clientX-10)+"px";
 
-        const pop =
-            document.createElement(
-                "div"
-            );
+pop.style.top=
+(e.clientY-20)+"px";
 
-        pop.className =
-            "tap-number";
+document.body.appendChild(pop);
 
-        pop.textContent =
-            "+" +
-            state.perTap +
-            " NEX";
+setTimeout(
+()=>pop.remove(),
+750
+);
 
+save();
 
-        pop.style.left =
-            (
-                event.clientX - 10
-            ) + "px";
-
-
-        pop.style.top =
-            (
-                event.clientY - 20
-            ) + "px";
-
-
-        document.body.appendChild(
-            pop
-        );
-
-
-        setTimeout(
-            function() {
-
-                pop.remove();
-
-            },
-            750
-        );
-
-
-        saveGame();
-
-        render();
-
-    }
+}
 );
 
 
-/* ================= ENERGY REGEN ================= */
+/* ENERGY */
 
 setInterval(
-    function() {
+function(){
 
-        if (
-            state.energy < 1000
-        ) {
+if(state.energy<1000){
 
-            state.energy =
-                Math.min(
-                    1000,
-                    state.energy + 1
-                );
+state.energy=
+Math.min(
+1000,
+state.energy+1
+);
 
-            saveGame();
+save();
 
-            render();
+}
 
-        }
-
-    },
-    1000
+},
+1000
 );
 
 
-/* ================= DAILY REWARD ================= */
+/* UPGRADE */
 
-function dailyReward() {
+function openUpgrade(){
 
-    const now =
-        Date.now();
+let cost =
+state.level*1000;
 
-    const day =
-        24 * 60 * 60 * 1000;
+let html=`
 
+<p>
+Current Tap Power:
+<b>+${state.perTap} NEX</b>
+</p>
 
-    if (
-        now -
-        state.lastReward
-        <
-        day
-    ) {
+<p>
+Next level:
+<b>+${state.perTap+1} NEX</b>
+</p>
 
-        openPopup(
-            "🎁 Daily Reward",
-            "You already claimed today's reward. Come back tomorrow!"
-        );
+<p>
+Upgrade cost:
+<b>${cost.toLocaleString()} NEX</b>
+</p>
 
-        return;
+<button
+class="action"
+onclick="upgrade()">
+🚀 Upgrade
+</button>
+`;
 
-    }
-
-
-    state.balance += 100;
-
-    state.lastReward =
-        now;
-
-
-    saveGame();
-
-    render();
-
-
-    openPopup(
-        "🎁 Daily Reward",
-        "+100 NEX has been added to your balance!"
-    );
+openPopup(
+"🚀 Upgrade",
+html
+);
 
 }
 
 
-/* ================= POPUPS ================= */
+function upgrade(){
+
+let cost=
+state.level*1000;
+
+if(state.balance<cost){
+
+openPopup(
+"Not enough NEX",
+"<p>You need <b>"+
+cost.toLocaleString()+
+" NEX</b> to upgrade.</p>"
+);
+
+return;
+
+}
+
+state.balance-=cost;
+
+state.level++;
+
+state.perTap++;
+
+save();
+
+openUpgrade();
+
+}
+
+
+/* MISSIONS */
+
+function openMissions(){
+
+let html=`
+
+<div class="mission">
+
+<div class="mission-title">
+🪙 Tap 100 times
+</div>
+
+<div class="mission-progress">
+Progress:
+${Math.min(state.taps,100)} / 100
+</div>
+
+<div class="mission-reward">
+Reward: +100 NEX
+</div>
+
+</div>
+
+
+<div class="mission">
+
+<div class="mission-title">
+🔥 Tap 500 times
+</div>
+
+<div class="mission-progress">
+Progress:
+${Math.min(state.taps,500)} / 500
+</div>
+
+<div class="mission-reward">
+Reward: +500 NEX
+</div>
+
+</div>
+
+
+<div class="mission">
+
+<div class="mission-title">
+🎁 Claim Daily Reward
+</div>
+
+<div class="mission-progress">
+${
+state.missions.daily
+?"Completed ✓"
+:"Not completed"
+}
+</div>
+
+<div class="mission-reward">
+Reward: Daily bonus
+</div>
+
+</div>
+
+`;
+
+openPopup(
+"📋 Missions",
+html
+);
+
+}
+
+
+/* FRIENDS */
+
+function openFriends(){
+
+let code =
+"NX"+generateCode();
+
+let link =
+"https://t.me/YOUR_BOT_USERNAME?start="+code;
+
+let html=`
+
+<p>
+Invite friends and earn referral rewards.
+</p>
+
+<div class="referral">
+
+<b>Your referral code</b>
+
+<br><br>
+
+${code}
+
+</div>
+
+<div class="referral">
+
+<b>Your referral link</b>
+
+<br><br>
+
+${link}
+
+</div>
+
+<button
+class="action"
+onclick="copyReferral('${link}')">
+📋 Copy Referral Link
+</button>
+
+<p style="color:#9da7b7;font-size:12px">
+The referral system needs a backend to securely track real invited Telegram users.
+</p>
+
+`;
+
+openPopup(
+"👥 Friends",
+html
+);
+
+}
+
+
+function generateCode(){
+
+let id =
+localStorage.getItem(
+"nexora_ref"
+);
+
+if(!id){
+
+id=
+Math.random()
+.toString(36)
+.substring(2,9)
+.toUpperCase();
+
+localStorage.setItem(
+"nexora_ref",
+id
+);
+
+}
+
+return id;
+
+}
+
+
+function copyReferral(link){
+
+navigator.clipboard
+?.writeText(link);
+
+openPopup(
+"✅ Copied",
+"<p>Your referral link has been copied.</p>"
+);
+
+}
+
+
+/* WALLET */
+
+function openWallet(){
+
+let html=`
+
+<div style="text-align:center">
+
+<div style="font-size:50px">
+💼
+</div>
+
+<h3>NEXORA Wallet</h3>
+
+<div class="referral">
+Balance<br><br>
+<b style="font-size:24px">
+${Math.floor(state.balance).toLocaleString()}
+NEX
+</b>
+</div>
+
+<p style="color:#9da7b7">
+Your NEX balance is currently an
+in-game balance. Blockchain wallet
+integration can be added later.
+</p>
+
+</div>
+
+`;
+
+openPopup(
+"💼 Wallet",
+html
+);
+
+
+/* LEADERBOARD */
+
+}
+
+function openLeaderboard(){
+
+let html=`
+
+<div class="mission">
+🥇 Player 1
+<b style="float:right">100,000 NEX</b>
+</div>
+
+<div class="mission">
+🥈 Player 2
+<b style="float:right">75,000 NEX</b>
+</div>
+
+<div class="mission">
+🥉 Player 3
+<b style="float:right">50,000 NEX</b>
+</div>
+
+<p style="color:#9da7b7;font-size:12px">
+This is currently a demonstration leaderboard.
+A real global leaderboard requires a backend.
+</p>
+
+`;
+
+openPopup(
+"🏆 Leaderboard",
+html
+);
+
+
+/* STATISTICS */
+
+}
+
+function openStatistics(){
+
+let html=`
+
+<div class="mission">
+🪙 Total NEX
+<b style="float:right">
+${Math.floor(state.balance).toLocaleString()}
+</b>
+</div>
+
+<div class="mission">
+👆 Total Taps
+<b style="float:right">
+${state.taps.toLocaleString()}
+</b>
+</div>
+
+<div class="mission">
+⭐ Level
+<b style="float:right">
+${state.level}
+</b>
+</div>
+
+<div class="mission">
+⚡ Tap Power
+<b style="float:right">
++${state.perTap}
+</b>
+</div>
+
+`;
+
+openPopup(
+"📊 Statistics",
+html
+);
+
+
+/* POPUP */
+
+}
 
 function openPopup(
-    title,
-    text
-) {
+title,
+content,
+showClose=true
+){
 
-    document.getElementById(
-        "popupTitle"
-    ).textContent =
-        title;
+$("popupTitle").textContent=
+title;
 
+$("popupContent").innerHTML=
+content;
 
-    document.getElementById(
-        "popupText"
-    ).textContent =
-        text;
-
-
-    document.getElementById(
-        "popup"
-    ).style.display =
-        "flex";
+$("popup").style.display=
+"flex";
 
 }
 
 
-function closePopup() {
+function closePopup(){
 
-    document.getElementById(
-        "popup"
-    ).style.display =
-        "none";
+$("popup").style.display=
+"none";
 
 }
 
 
-/* ================= START ================= */
+/* TELEGRAM NAME */
+
+if(
+tg &&
+tg.initDataUnsafe &&
+tg.initDataUnsafe.user &&
+!state.name
+){
+
+state.name=
+tg.initDataUnsafe.user.first_name ||
+"Player";
+
+save();
+
+}
+
+
+/* START */
 
 render();
 
 </script>
 
 </body>
-  </html>
+    </html>
