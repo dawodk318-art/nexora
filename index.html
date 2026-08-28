@@ -904,64 +904,40 @@ openPopup(
 $("coin")
 .addEventListener(
 "pointerdown",
-function(e){
+function tap(e){
+  if(state.energy<=0)return;
 
-if(state.energy<=0)
-return;
+  state.balance += state.perTap;
+  state.energy--;
+  state.taps++;
 
-state.balance+=
-state.perTap;
+  if(state.taps>=100 && !state.missions.tap100){
+    state.balance += 100;
+    state.missions.tap100 = true;
+  }
 
-state.energy--;
+  if(state.taps>=500 && !state.missions.tap500){
+    state.balance += 500;
+    state.missions.tap500 = true;
+  }
 
-state.taps++;
+  let pop=document.createElement("div");
+  pop.className="tap-number";
+  pop.textContent="+" + state.perTap;
 
-if(
-state.taps>=100 &&
-!state.missions.tap100
-){
+  pop.style.position="fixed";
+  pop.style.left=((e.clientX || innerWidth/2)-15)+"px";
+  pop.style.top=((e.clientY || innerHeight/2)-30)+"px";
+  pop.style.zIndex="99999";
+  pop.style.pointerEvents="none";
 
-state.balance+=100;
+  document.body.appendChild(pop);
 
-state.missions.tap100=true;
+  setTimeout(()=>{
+    pop.remove();
+  },800);
 
-}
-
-if(
-state.taps>=500 &&
-!state.missions.tap500
-){
-
-state.balance+=500;
-
-state.missions.tap500=true;
-
-}
-
-let pop =
-document.createElement("div");
-
-pop.className=
-"tap-number";
-
-pop.textContent=
-"+"+state.perTap+" NEX";
-
-pop.style.left=
-(e.clientX-10)+"px";
-
-pop.style.top=
-(e.clientY-20)+"px";
-
-document.body.appendChild(pop);
-
-setTimeout(
-()=>pop.remove(),
-750
-);
-
-save();
-
+  save();
 }
 );
 
