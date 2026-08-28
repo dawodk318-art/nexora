@@ -1138,7 +1138,7 @@ let code =
 "NX"+generateCode();
 
 let link =
-"https://t.me/YOUR_BOT_USERNAME?start="+code;
+"https://t.me/NexoraTapBot?start="+code;
 
 let html=`
 
@@ -1270,27 +1270,26 @@ html
 
 function openLeaderboard(){
 
-let html=`
+let html = `
 
-<div class="mission">
-🥇 Player 1
-<b style="float:right">100,000 NEX</b>
+<div class="mission" style="text-align:center">
+
+<div style="font-size:40px">
+🏆
 </div>
 
-<div class="mission">
-🥈 Player 2
-<b style="float:right">75,000 NEX</b>
-</div>
+<h3>Global Leaderboard</h3>
 
-<div class="mission">
-🥉 Player 3
-<b style="float:right">50,000 NEX</b>
-</div>
-
-<p style="color:#9da7b7;font-size:12px">
-This is currently a demonstration leaderboard.
-A real global leaderboard requires a backend.
+<p style="color:#9da7b7">
+The global leaderboard is not connected yet.
 </p>
+
+<p style="color:#9da7b7;font-size:13px">
+Your ranking will appear here when the
+Nexora server is connected.
+</p>
+
+</div>
 
 `;
 
@@ -1298,6 +1297,8 @@ openPopup(
 "🏆 Leaderboard",
 html
 );
+
+}
 
 
 /* STATISTICS */
