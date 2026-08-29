@@ -390,8 +390,8 @@ pointer-events:none;
 color:#ffd72a;
 font-size:27px;
 font-weight:900;
-z-index:1000;
-animation:up .75s ease-out forwards;
+z-index:999999;
+text-shadow:0 2px 8px rgba(0,0,0,.8);
 }
 
 @keyframes up{
@@ -922,18 +922,26 @@ function tap(e){
   }
 
   let pop=document.createElement("div");
-  pop.className="tap-number";
-  pop.textContent="+" + state.perTap;
+pop.className="tap-number";
+pop.textContent="+" + state.perTap;
 
-  pop.style.position="fixed";
-  pop.style.left=((e.clientX || innerWidth/2)-15)+"px";
-  pop.style.top=((e.clientY || innerHeight/2)-30)+"px";
-  pop.style.zIndex="99999";
-  pop.style.pointerEvents="none";
+pop.style.position="fixed";
+pop.style.left=((e.clientX || innerWidth/2)-15)+"px";
+pop.style.top=((e.clientY || innerHeight/2)-30)+"px";
+pop.style.zIndex="999999";
+pop.style.pointerEvents="none";
+pop.style.opacity="1";
+pop.style.transform="translateY(0) scale(1)";
+pop.style.transition="transform .75s ease-out, opacity .75s ease-out";
 
-  document.body.appendChild(pop);
+document.body.appendChild(pop);
 
-  setTimeout(()=>{
+requestAnimationFrame(()=>{
+    pop.style.transform="translateY(-90px) scale(1.15)";
+    pop.style.opacity="0";
+});
+
+setTimeout(()=>{
     pop.remove();
   },800);
 
