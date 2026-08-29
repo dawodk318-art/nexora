@@ -4,565 +4,433 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Nexora</title>
-
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  margin:0;
-  min-height:100%;
-  background:#050914;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
 body{
-  overflow-x:hidden;
+margin:0;
+background:#05080e;
+color:#fff;
+font-family:Arial,sans-serif;
 }
 
 button{
-  font:inherit;
+font-family:inherit;
 }
 
 .app{
-  max-width:600px;
-  min-height:100vh;
-  margin:auto;
-  padding:10px 12px 95px;
-  background:
-    radial-gradient(circle at 50% 38%,#182039 0,#080d19 42%,#03060c 100%);
+max-width:520px;
+margin:auto;
+min-height:100vh;
+padding:14px;
+padding-bottom:25px;
+background:
+radial-gradient(circle at 50% 40%,rgba(255,190,0,.13),transparent 32%),
+linear-gradient(#0a0e16,#05080e);
 }
 
 /* TOP */
 
 .top{
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
 }
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.logo{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ffd629;
-  font-size:23px;
-  font-weight:900;
-  border:2px solid #dba900;
-  background:#10151e;
-  box-shadow:0 0 18px rgba(255,194,0,.3);
-}
-
-.brand-title{
-  font-size:20px;
-  font-weight:900;
-}
-
-.brand-sub{
-  color:#8792a7;
-  font-size:11px;
-}
-
-/* PROFILE */
 
 .profile{
-  border:1px solid #2c3b55;
-  background:linear-gradient(145deg,#111b2c,#090f1b);
-  border-radius:20px;
-  padding:11px;
-}
-
-.profile-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
 }
 
 .avatar{
-  width:58px;
-  height:58px;
-  border-radius:17px;
-  object-fit:cover;
-  background:#151d2d;
-  border:2px solid #46536a;
+width:56px;
+height:56px;
+border-radius:17px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+background:linear-gradient(145deg,#29364a,#101722);
+border:1px solid #39475b;
 }
 
-.player{
-  flex:1;
-  min-width:0;
-}
-
-.name{
-  font-size:19px;
-  font-weight:900;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+.username{
+font-size:18px;
+font-weight:800;
 }
 
 .level{
-  margin-top:5px;
-  color:#ffd42a;
-  font-size:13px;
-  font-weight:bold;
+margin-top:6px;
+font-size:13px;
+color:#ffd02a;
 }
 
-.daily{
-  padding:9px;
-  border:1px solid #344258;
-  border-radius:14px;
-  background:#101927;
-  display:flex;
-  align-items:center;
-  gap:7px;
+.reward{
+min-width:145px;
+padding:10px;
+border-radius:17px;
+display:flex;
+gap:8px;
+align-items:center;
+background:linear-gradient(145deg,#182130,#0e141d);
+border:1px solid #354153;
+cursor:pointer;
 }
 
-.daily-icon{
-  font-size:25px;
-}
-
-.daily-title{
-  font-size:11px;
-  font-weight:900;
-}
-
-.daily-time{
-  color:#8994a8;
-  font-size:10px;
-  margin-top:3px;
-}
+.reward-icon{font-size:24px}
+.reward-title{font-size:12px;font-weight:bold}
+.reward-time{font-size:11px;color:#9da7b7;margin-top:4px}
 
 /* STATS */
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  margin-top:10px;
-  border:1px solid #2d3c54;
-  border-radius:17px;
-  overflow:hidden;
-  background:#0e1725;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:14px;
 }
 
 .stat{
-  text-align:center;
-  padding:12px 4px;
+padding:11px 4px;
+text-align:center;
+border-radius:16px;
+background:linear-gradient(145deg,#17202d,#0d131d);
+border:1px solid #344052;
 }
 
-.stat+.stat{
-  border-left:1px solid #2d3c54;
-}
-
-.stat-title{
-  color:#8e99ad;
-  font-size:10px;
+.stat-label{
+font-size:10px;
+color:#929cac;
+font-weight:bold;
 }
 
 .stat-value{
-  margin-top:6px;
-  font-size:17px;
-  font-weight:900;
-  color:#fff;
+margin-top:7px;
+font-size:16px;
+font-weight:900;
 }
 
 /* BALANCE */
 
 .balance{
-  text-align:center;
-  margin-top:20px;
+text-align:center;
+margin-top:17px;
 }
 
 .balance-number{
-  color:#ffdf3d;
-  font-size:40px;
-  font-weight:900;
-  text-shadow:0 0 18px rgba(255,199,0,.25);
+font-size:43px;
+font-weight:900;
 }
 
-.balance-label{
-  color:#8f99aa;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:2px;
+.balance-title{
+color:#9ba4b2;
+font-size:15px;
+letter-spacing:1px;
+margin-top:5px;
 }
 
 /* COIN */
 
 .coin-area{
-  height:345px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-  touch-action:none;
-}
-
-.glow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  background:radial-gradient(circle,
-    rgba(255,196,0,.25),
-    rgba(255,150,0,.08) 50%,
-    transparent 72%);
-  pointer-events:none;
+height:305px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .coin{
-  width:235px;
-  height:235px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border:8px solid #ffdf4b;
-  background:
-    radial-gradient(circle at 32% 27%,
-      #fff184,
-      #ffc400 34%,
-      #bd7600 66%,
-      #513000);
-  box-shadow:
-    0 0 22px #ffcb22,
-    0 0 65px rgba(255,179,0,.4),
-    inset 0 0 25px rgba(255,246,150,.4);
-  user-select:none;
-  touch-action:none;
-  transition:transform .06s;
+width:245px;
+height:245px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle at 35% 25%,#fff19a,#ffd12a 25%,#f2a500 55%,#a75a00 78%,#633500);
+border:8px solid #ffda42;
+box-shadow:
+0 0 15px #ffbf00,
+0 0 35px rgba(255,188,0,.55),
+0 0 80px rgba(255,170,0,.22);
+cursor:pointer;
+user-select:none;
+transition:transform .08s;
 }
 
 .coin:active{
-  transform:scale(.92);
+transform:scale(.93);
 }
 
 .coin-inner{
-  width:183px;
-  height:183px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:5px solid #996000;
-  background:radial-gradient(circle,#3a2c14,#080a0e 72%);
-  color:#ffd51d;
-  font-size:104px;
-  font-weight:900;
-  text-shadow:0 0 15px #ffad00;
+width:175px;
+height:175px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:radial-gradient(circle,#202631,#0b0e14);
+border:5px solid #6c3b00;
 }
 
-/* TAP ANIMATION */
-
-.tap-number{
-  position:fixed;
-  z-index:999999;
-  pointer-events:none;
-  color:#ffe34b;
-  font-size:30px;
-  font-weight:900;
-  text-shadow:0 2px 8px #000;
-  transform:translate(-50%,0);
-  animation:tapUp .7s ease-out forwards;
-}
-
-@keyframes tapUp{
-  0%{
-    opacity:1;
-    transform:translate(-50%,0) scale(1);
-  }
-
-  100%{
-    opacity:0;
-    transform:translate(-50%,-90px) scale(1.18);
-  }
+.coin-letter{
+font-size:105px;
+font-weight:1000;
+color:#ffd21a;
+text-shadow:2px 3px 0 #8a5100,0 0 15px #ffb700;
 }
 
 /* ENERGY */
 
 .energy{
-  padding:12px;
-  border:1px solid #2d3d56;
-  border-radius:18px;
-  background:#0e1725;
+padding:13px 16px;
+border-radius:18px;
+background:linear-gradient(145deg,#17202d,#0d131c);
+border:1px solid #344052;
 }
 
-.energy-top{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  font-weight:bold;
+.energy-row{
+display:flex;
+justify-content:space-between;
+font-size:14px;
 }
 
 .energy-bar{
-  height:10px;
-  margin-top:8px;
-  border-radius:10px;
-  background:#283344;
-  overflow:hidden;
+height:11px;
+margin-top:9px;
+background:#29313e;
+border-radius:20px;
+overflow:hidden;
 }
 
 .energy-fill{
-  height:100%;
-  width:100%;
-  border-radius:10px;
-  background:#ffd21f;
-  transition:width .15s;
+height:100%;
+width:100%;
+background:linear-gradient(90deg,#ffb900,#ffe15b);
 }
 
-/* BUTTONS */
+/* MENU */
 
-.actions{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-top:10px;
+.menu{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:12px;
 }
 
-.action{
-  min-height:100px;
-  border:1px solid #2d3d55;
-  border-radius:17px;
-  background:#0e1725;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
+.menu-button{
+min-height:96px;
+border-radius:17px;
+background:linear-gradient(145deg,#17202d,#0c121b);
+border:1px solid #344052;
+color:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer;
 }
 
-.action:active{
-  transform:scale(.96);
+.menu-button:active{
+transform:scale(.95);
 }
 
-.action-icon{
-  font-size:27px;
+.menu-icon{
+font-size:30px;
+margin-bottom:7px;
 }
 
-.action-title{
-  font-size:11px;
-  font-weight:900;
+.menu-text{
+font-size:12px;
+font-weight:bold;
 }
 
-.action-sub{
-  color:#818da1;
-  font-size:9px;
+/* BOTTOM */
+
+.bottom{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:10px;
 }
 
-/* LOWER */
-
-.lower{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
+.bottom-button{
+padding:14px 5px;
+text-align:center;
+border-radius:16px;
+background:linear-gradient(145deg,#17202d,#0c121b);
+border:1px solid #344052;
+font-size:13px;
+cursor:pointer;
 }
 
-.lower button{
-  padding:13px;
-  border:1px solid #2d3d55;
-  border-radius:17px;
-  background:#0e1725;
-  color:#fff;
-  text-align:left;
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:rgba(0,0,0,.8);
+z-index:100;
 }
 
-.lower-title{
-  font-weight:900;
+.popup-box{
+width:100%;
+max-width:390px;
+max-height:90vh;
+overflow:auto;
+padding:22px;
+border-radius:23px;
+background:linear-gradient(145deg,#182130,#0c121b);
+border:1px solid #3a4658;
 }
 
-.lower-sub{
-  color:#818da1;
-  font-size:10px;
-  margin-top:4px;
-}
-
-/* NAV */
-
-.nav{
-  position:fixed;
-  left:50%;
-  bottom:0;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:600px;
-  height:72px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:#070c15;
-  border-top:1px solid #26364d;
-  z-index:1000;
-}
-
-.nav button{
-  border:0;
-  background:none;
-  color:#788397;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-  font-size:10px;
-}
-
-.nav button.active{
-  color:#ffd21f;
-}
-
-.nav-icon{
-  font-size:22px;
-}
-
-/* PANELS */
-
-.panel{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:2000;
-  background:#050914;
-  overflow:auto;
-  padding:18px 14px 90px;
-}
-
-.panel-inner{
-  max-width:600px;
-  margin:auto;
-}
-
-.panel-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.panel-head h2{
-  margin:0;
+.popup-title{
+margin:0 0 15px;
+font-size:22px;
 }
 
 .close{
-  border:1px solid #33445d;
-  border-radius:10px;
-  padding:8px 12px;
-  background:#111b2a;
-  color:#fff;
+width:100%;
+margin-top:15px;
+padding:13px;
+border:0;
+border-radius:14px;
+background:#293548;
+color:white;
+font-size:15px;
 }
 
-.card{
-  background:#0e1725;
-  border:1px solid #2d3d55;
-  border-radius:17px;
-  padding:15px;
-  margin-bottom:10px;
-}
-
-.card-title{
-  font-weight:900;
-}
-
-.card-sub{
-  color:#8a95a8;
-  font-size:12px;
-  margin-top:5px;
-}
-
-.reward{
-  color:#ffd21f;
-  font-weight:900;
-  margin-top:8px;
+.action{
+width:100%;
+padding:13px;
+border:0;
+border-radius:13px;
+background:#f5b900;
+color:#111;
+font-weight:bold;
+margin-top:10px;
 }
 
 .input{
-  width:100%;
-  padding:13px;
-  border-radius:12px;
-  border:1px solid #36465e;
-  background:#101927;
-  color:white;
-  outline:none;
-  margin-top:8px;
+width:100%;
+padding:13px;
+border-radius:13px;
+border:1px solid #3c4759;
+background:#0d131c;
+color:white;
+font-size:16px;
+outline:none;
 }
 
-.confirm{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:13px;
-  background:#ffd21f;
-  color:#111;
-  font-weight:900;
-  margin-top:8px;
-}
-
-/* AVATARS */
-
-.avatar-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:12px;
+.avatar-list{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:12px;
 }
 
 .avatar-choice{
-  aspect-ratio:1;
-  border:2px solid #2d3d55;
-  border-radius:16px;
-  background:#111b2a;
-  color:#ffd21f;
-  font-size:45px;
+height:58px;
+border-radius:14px;
+border:1px solid #354153;
+background:#121a26;
+font-size:28px;
+cursor:pointer;
 }
 
 .avatar-choice.selected{
-  border-color:#ffd21f;
-  box-shadow:0 0 15px rgba(255,210,30,.3);
+border:2px solid #ffd029;
+background:#272515;
 }
 
-.note{
-  color:#8994a7;
-  font-size:11px;
-  margin-top:6px;
+.referral{
+background:#0c131d;
+border:1px solid #344052;
+border-radius:14px;
+padding:13px;
+margin:10px 0;
+word-break:break-all;
+color:#dfe5ef;
 }
 
-@media(max-width:400px){
-  .daily{
-    padding:7px;
-  }
+.mission{
+padding:13px;
+border-radius:14px;
+background:#101824;
+border:1px solid #303c4e;
+margin-bottom:9px;
+}
 
-  .daily-title{
-    font-size:9px;
-  }
+.mission-title{
+font-weight:bold;
+}
 
-  .coin-area{
-    height:310px;
-  }
+.mission-progress{
+font-size:12px;
+color:#a5afbf;
+margin-top:6px;
+}
 
-  .coin{
-    width:210px;
-    height:210px;
-  }
+.mission-reward{
+color:#ffd02a;
+margin-top:7px;
+}
 
-  .coin-inner{
-    width:164px;
-    height:164px;
-    font-size:90px;
-  }
+.tap-number{
+position:fixed;
+pointer-events:none;
+color:#ffd72a;
+font-size:27px;
+font-weight:900;
+z-index:1000;
+animation:up .75s ease-out forwards;
+}
+
+@keyframes up{
+to{
+transform:translateY(-95px) scale(1.2);
+opacity:0;
+}
+}
+
+@media(max-width:390px){
+
+.reward{
+min-width:130px;
+}
+
+.coin{
+width:220px;
+height:220px;
+}
+
+.coin-inner{
+width:158px;
+height:158px;
+}
+
+.coin-letter{
+font-size:92px;
+}
+
+.coin-area{
+height:280px;
+}
+
+.menu-button{
+min-height:88px;
+}
+
+.menu-icon{
+font-size:27px;
+}
 }
 </style>
 </head>
@@ -571,603 +439,173 @@ button{
 
 <div class="app">
 
-  <div class="top">
+<div class="top">
 
-    <div class="brand">
+<div class="profile" onclick="openProfile()">
 
-      <div class="logo">N</div>
+<div class="avatar" id="avatar">
+🙂
+</div>
 
-      <div>
-        <div class="brand-title">Nexora</div>
-        <div class="brand-sub">Tap • Earn • Upgrade</div>
-      </div>
+<div>
 
-    </div>
+<div class="username" id="username">
+Player
+</div>
 
-    <div>⋮</div>
+<div class="level">
+⭐ Level <span id="level">1</span>
+</div>
 
-  </div>
+</div>
 
+</div>
 
-  <!-- PROFILE -->
+<div class="reward" onclick="dailyReward()">
 
-  <div class="profile">
+<div class="reward-icon">🎁</div>
 
-    <div class="profile-row">
+<div>
+<div class="reward-title">Daily Reward</div>
+<div class="reward-time" id="rewardText">Claim →</div>
+</div>
 
-      <img
-        id="playerAvatar"
-        class="avatar"
-        alt="Avatar"
-      >
-
-      <div class="player">
-
-        <div
-          id="playerName"
-          class="name"
-        >
-          New Player
-        </div>
-
-        <div class="level">
-          ⭐ Level <span id="level">1</span>
-        </div>
-
-      </div>
-
-      <div class="daily">
-
-        <div class="daily-icon">🎁</div>
-
-        <div>
-          <div class="daily-title">
-            Daily Reward
-          </div>
-
-          <div
-            id="dailyTimer"
-            class="daily-time"
-          >
-            24:00:00
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <div class="stat-title">
-          Profit per tap
-        </div>
-
-        <div class="stat-value">
-          +<span id="perTap">1</span>
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          Coins to level up
-        </div>
-
-        <div
-          id="levelTarget"
-          class="stat-value"
-        >
-          1000
-        </div>
-
-      </div>
-
-      <div class="stat">
-
-        <div class="stat-title">
-          Profit per hour
-        </div>
-
-        <div class="stat-value">
-          0
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- BALANCE -->
-
-  <div class="balance">
-
-    <div
-      id="balance"
-      class="balance-number"
-    >
-      0
-    </div>
-
-    <div class="balance-label">
-      NEXORA COIN
-    </div>
-
-  </div>
-
-
-  <!-- COIN -->
-
-  <div class="coin-area">
-
-    <div class="glow"></div>
-
-    <div
-      id="coin"
-      class="coin"
-    >
-
-      <div class="coin-inner">
-        N
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ENERGY -->
-
-  <div class="energy">
-
-    <div class="energy-top">
-
-      <span>⚡ Energy</span>
-
-      <span>
-        <span id="energy">1000</span> / 1000
-      </span>
-
-    </div>
-
-    <div class="energy-bar">
-
-      <div
-        id="energyFill"
-        class="energy-fill"
-      ></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ACTIONS -->
-
-  <div class="actions">
-
-    <button
-      class="action"
-      onclick="openPanel('profilePanel')"
-    >
-      <span class="action-icon">👤</span>
-      <span class="action-title">Profile</span>
-      <span class="action-sub">Your account</span>
-    </button>
-
-    <button
-      class="action"
-      onclick="openPanel('upgradePanel')"
-    >
-      <span class="action-icon">🚀</span>
-      <span class="action-title">Upgrade</span>
-      <span class="action-sub">Tap power</span>
-    </button>
-
-    <button
-      class="action"
-      onclick="openPanel('missionsPanel')"
-    >
-      <span class="action-icon">📋</span>
-      <span class="action-title">Missions</span>
-      <span class="action-sub">Earn rewards</span>
-    </button>
-
-    <button
-      class="action"
-      onclick="openPanel('friendsPanel')"
-    >
-      <span class="action-icon">👥</span>
-      <span class="action-title">Friends</span>
-      <span class="action-sub">Invite friends</span>
-    </button>
-
-  </div>
-
-
-  <div class="lower">
-
-    <button onclick="openPanel('walletPanel')">
-      💼
-      <span class="lower-title"> Wallet</span>
-      <div class="lower-sub">Nexora balance</div>
-    </button>
-
-    <button onclick="openPanel('leaderboardPanel')">
-      🏆
-      <span class="lower-title"> Leaderboard</span>
-      <div class="lower-sub">Top players</div>
-    </button>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- NAV -->
+<div class="stats">
 
-<div class="nav">
+<div class="stat">
+<div class="stat-label">PROFIT PER TAP</div>
+<div class="stat-value">🪙 +<span id="perTap">1</span></div>
+</div>
 
-  <button
-    class="active"
-    onclick="closePanels()"
-  >
-    <span class="nav-icon">⌂</span>
-    Home
-  </button>
+<div class="stat">
+<div class="stat-label">TO LEVEL UP</div>
+<div class="stat-value" id="levelCost">1K</div>
+</div>
 
-  <button onclick="openPanel('upgradePanel')">
-    <span class="nav-icon">🚀</span>
-    Upgrade
-  </button>
-
-  <button onclick="openPanel('missionsPanel')">
-    <span class="nav-icon">📋</span>
-    Missions
-  </button>
-
-  <button onclick="openPanel('friendsPanel')">
-    <span class="nav-icon">👥</span>
-    Friends
-  </button>
-
-  <button onclick="openPanel('walletPanel')">
-    <span class="nav-icon">💼</span>
-    Wallet
-  </button>
+<div class="stat">
+<div class="stat-label">PROFIT PER HOUR</div>
+<div class="stat-value">🪙 <span id="perHour">0</span></div>
+</div>
 
 </div>
 
 
-<!-- PROFILE PANEL -->
+<div class="balance">
 
-<div
-  id="profilePanel"
-  class="panel"
->
+<div class="balance-number" id="balance">
+0
+</div>
 
-  <div class="panel-inner">
-
-    <div class="panel-head">
-
-      <h2>👤 Profile</h2>
-
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
-
-    </div>
-
-
-    <div style="text-align:center">
-
-      <img
-        id="bigAvatar"
-        class="avatar"
-        style="width:100px;height:100px"
-        alt="Avatar"
-      >
-
-    </div>
-
-
-    <h3>Nexora Username</h3>
-
-    <input
-      id="usernameInput"
-      class="input"
-      maxlength="20"
-      placeholder="Choose your username"
-    >
-
-    <div class="note">
-      Your username can only be selected once.
-    </div>
-
-    <button
-      class="confirm"
-      onclick="saveUsername()"
-    >
-      Confirm Username
-    </button>
-
-
-    <h3>Choose Avatar</h3>
-
-    <div class="avatar-grid">
-
-      <button
-        class="avatar-choice selected"
-        onclick="chooseAvatar(0,this)"
-      >🚀</button>
-
-      <button
-        class="avatar-choice"
-        onclick="chooseAvatar(1,this)"
-      >👨‍🚀</button>
-
-      <button
-        class="avatar-choice"
-        onclick="chooseAvatar(2,this)"
-      >🤖</button>
-
-      <button
-        class="avatar-choice"
-        onclick="chooseAvatar(3,this)"
-      >👽</button>
-
-      <button
-        class="avatar-choice"
-        onclick="chooseAvatar(4,this)"
-      >🧙</button>
-
-      <button
-        class="avatar-choice"
-        onclick="chooseAvatar(5,this)"
-      >🥷</button>
-
-    </div>
-
-  </div>
+<div class="balance-title">
+NEXORA COIN
+</div>
 
 </div>
 
 
-<!-- UPGRADE -->
+<div class="coin-area">
 
-<div
-  id="upgradePanel"
-  class="panel"
->
+<div class="coin" id="coin">
 
-  <div class="panel-inner">
+<div class="coin-inner">
 
-    <div class="panel-head">
+<div class="coin-letter">
+N
+</div>
 
-      <h2>🚀 Upgrade</h2>
+</div>
 
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Tap Power
-      </div>
-
-      <div class="card-sub">
-        Increase the coins you receive from every tap.
-      </div>
-
-      <div class="reward">
-        Cost: 100 NEX
-      </div>
-
-      <button
-        class="confirm"
-        onclick="upgrade()"
-      >
-        Upgrade
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- MISSIONS -->
+<div class="energy">
 
-<div
-  id="missionsPanel"
-  class="panel"
->
+<div class="energy-row">
 
-  <div class="panel-inner">
+<div>⚡ Energy</div>
 
-    <div class="panel-head">
+<div>
+<span id="energy">1000</span> / 1000
+</div>
 
-      <h2>📋 Missions</h2>
+</div>
 
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
+<div class="energy-bar">
 
-    </div>
+<div class="energy-fill"
+id="energyFill">
+</div>
 
-    <div class="card">
-
-      <div class="card-title">
-        Tap 100 times
-      </div>
-
-      <div class="card-sub">
-        Complete 100 taps.
-      </div>
-
-      <div class="reward">
-        +100 NEX
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Tap 500 times
-      </div>
-
-      <div class="card-sub">
-        Complete 500 taps.
-      </div>
-
-      <div class="reward">
-        +500 NEX
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- FRIENDS -->
+<div class="menu">
 
-<div
-  id="friendsPanel"
-  class="panel"
->
+<button class="menu-button" onclick="openUpgrade()">
+<span class="menu-icon">🚀</span>
+<span class="menu-text">Upgrade</span>
+</button>
 
-  <div class="panel-inner">
+<button class="menu-button" onclick="openMissions()">
+<span class="menu-icon">📋</span>
+<span class="menu-text">Missions</span>
+</button>
 
-    <div class="panel-head">
+<button class="menu-button" onclick="openFriends()">
+<span class="menu-icon">👥</span>
+<span class="menu-text">Friends</span>
+</button>
 
-      <h2>👥 Friends</h2>
-
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Invite friends
-      </div>
-
-      <div class="card-sub">
-        Invite people to Nexora using your referral link.
-      </div>
-
-      <button
-        class="confirm"
-        onclick="invite()"
-      >
-        Invite Friends
-      </button>
-
-    </div>
-
-  </div>
+<button class="menu-button" onclick="openWallet()">
+<span class="menu-icon">💼</span>
+<span class="menu-text">Wallet</span>
+</button>
 
 </div>
 
 
-<!-- WALLET -->
+<div class="bottom">
 
-<div
-  id="walletPanel"
-  class="panel"
->
+<div class="bottom-button"
+onclick="openLeaderboard()">
+🏆 Leaderboard
+</div>
 
-  <div class="panel-inner">
+<div class="bottom-button"
+onclick="openStatistics()">
+📊 Statistics
+</div>
 
-    <div class="panel-head">
-
-      <h2>💼 Wallet</h2>
-
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        NEXORA Balance
-      </div>
-
-      <div
-        id="walletBalance"
-        class="reward"
-      >
-        0 NEX
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- LEADERBOARD -->
+<!-- POPUP -->
 
-<div
-  id="leaderboardPanel"
-  class="panel"
->
+<div class="popup" id="popup">
 
-  <div class="panel-inner">
+<div class="popup-box">
 
-    <div class="panel-head">
+<h2 class="popup-title" id="popupTitle"></h2>
 
-      <h2>🏆 Leaderboard</h2>
+<div id="popupContent"></div>
 
-      <button
-        class="close"
-        onclick="closePanels()"
-      >
-        Close
-      </button>
+<button class="close"
+onclick="closePopup()">
+Close
+</button>
 
-    </div>
-
-    <div class="card">
-      🥇 Leaderboard system will connect to the server.
-    </div>
-
-  </div>
+</div>
 
 </div>
 
@@ -1177,92 +615,66 @@ button{
 /* TELEGRAM */
 
 const tg =
-  window.Telegram &&
-  window.Telegram.WebApp;
+window.Telegram &&
+window.Telegram.WebApp;
 
 if(tg){
-  tg.ready();
-  tg.expand();
+tg.ready();
+tg.expand();
 }
 
 
-/* AVATAR DATA
-   These are built-in for now,
-   so there are NO broken image files.
-*/
+/* PLAYER DATA */
 
-const avatars = [
-  "🚀",
-  "👨‍🚀",
-  "🤖",
-  "👽",
-  "🧙",
-  "🥷"
-];
+let state =
+JSON.parse(
+localStorage.getItem("nexora_state")
+||
+JSON.stringify({
 
+name:"",
+avatar:"🙂",
 
-/* STATE */
+balance:0,
 
-let state;
+energy:1000,
 
-try{
+level:1,
 
-  state =
-    JSON.parse(
-      localStorage.getItem("nexora_state")
-    );
+perTap:1,
 
-}catch(e){
+taps:0,
 
-  state = null;
+dailyReward:0,
 
-}
+missions:{
 
-
-if(!state){
-
-  state = {
-    balance:0,
-    energy:1000,
-    maxEnergy:1000,
-    level:1,
-    perTap:1,
-    taps:0,
-    username:"",
-    usernameLocked:false,
-    avatar:0,
-    mission100:false,
-    mission500:false
-  };
+tap100:false,
+tap500:false,
+daily:false
 
 }
+
+})
+);
+
+
+/* ELEMENTS */
+
+const $ =
+id => document.getElementById(id);
 
 
 /* SAVE */
 
 function save(){
 
-  localStorage.setItem(
-    "nexora_state",
-    JSON.stringify(state)
-  );
+localStorage.setItem(
+"nexora_state",
+JSON.stringify(state)
+);
 
-}
-
-
-/* TELEGRAM USER */
-
-function getTelegramUser(){
-
-  if(
-    !tg ||
-    !tg.initDataUnsafe ||
-    !tg.initDataUnsafe.user
-  ){
-    return null;
-  }
-
-  return tg.initDataUnsafe.user;
+render();
 
 }
 
@@ -1271,173 +683,718 @@ function getTelegramUser(){
 
 function render(){
 
-  document.getElementById(
-    "balance"
-  ).textContent =
-    Math.floor(
-      state.balance
-    ).toLocaleString();
+$("balance").textContent =
+Math.floor(state.balance).toLocaleString();
 
+$("energy").textContent =
+Math.floor(state.energy);
 
-  document.getElementById(
-    "energy"
-  ).textContent =
-    Math.floor(
-      state.energy
-    );
+$("level").textContent =
+state.level;
 
+$("perTap").textContent =
+state.perTap;
 
-  document.getElementById(
-    "energyFill"
-  ).style.width =
-    (
-      state.energy /
-      state.maxEnergy *
-      100
-    ) + "%";
+$("username").textContent =
+state.name || "Player";
 
+$("avatar").textContent =
+state.avatar;
 
-  document.getElementById(
-    "perTap"
-  ).textContent =
-    state.perTap;
+$("energyFill").style.width =
+(state.energy/1000*100)+"%";
 
+let cost =
+state.level * 1000;
 
-  document.getElementById(
-    "level"
-  ).textContent =
-    state.level;
+$("levelCost").textContent =
+cost >= 1000
+? (cost/1000)+"K"
+: cost;
 
+if(
+state.dailyReward &&
+Date.now()-state.dailyReward
+<86400000
+){
 
-  document.getElementById(
-    "levelTarget"
-  ).textContent =
-    Math.max(
-      1000 -
-      (state.balance % 1000),
-      0
-    ).toLocaleString();
+$("rewardText").textContent =
+"Claimed ✓";
 
+}else{
 
-  document.getElementById(
-    "walletBalance"
-  ).textContent =
-    Math.floor(
-      state.balance
-    ).toLocaleString() +
-    " NEX";
+$("rewardText").textContent =
+"Claim →";
 
-
-  document.getElementById(
-    "bigAvatar"
-  ).src =
-    makeAvatarImage(
-      state.avatar
-    );
-
-
-  document.getElementById(
-    "playerAvatar"
-  ).src =
-    makeAvatarImage(
-      state.avatar
-    );
-
-
-  /* Name */
-
-  if(state.username){
-
-    document.getElementById(
-      "playerName"
-    ).textContent =
-      state.username;
-
-  }else{
-
-    const user =
-      getTelegramUser();
-
-    if(user){
-
-      document.getElementById(
-        "playerName"
-      ).textContent =
-        user.first_name ||
-        user.username ||
-        "New Player";
-
-    }else{
-
-      document.getElementById(
-        "playerName"
-      ).textContent =
-        "New Player";
-
-    }
-
-  }
-
-
-  /* Telegram profile photo */
-
-  const user =
-    getTelegramUser();
-
-  if(
-    user &&
-    user.photo_url &&
-    state.avatar === -1
-  ){
-
-    document.getElementById(
-      "playerAvatar"
-    ).src =
-      user.photo_url;
-
-    document.getElementById(
-      "bigAvatar"
-    ).src =
-      user.photo_url;
-
-  }
-
-
-  if(state.usernameLocked){
-
-    document.getElementById(
-      "usernameInput"
-    ).value =
-      state.username;
-
-    document.getElementById(
-      "usernameInput"
-    ).disabled =
-      true;
-
-  }
+}
 
 }
 
 
-/* CREATE AVATAR IMAGE */
+/* PROFILE */
 
-function makeAvatarImage(index){
+function openProfile(){
 
-  if(index < 0){
+let avatars=[
+"🙂","😎","🤖",
+"👽","🦊","🐯",
+"🐼","🦁","🐸",
+"🥷","👑","🚀"
+];
 
-    const user =
-      getTelegramUser();
+let html=`
 
-    if(
-      user &&
-      user.photo_url
-    ){
-      return user.photo_url;
-    }
+<h2 class="popup-title">
+👤 Your Nexora Profile
+</h2>
 
-  }
+<input
+class="input"
+id="nameInput"
+maxlength="20"
+placeholder="Enter your name"
+value="${escapeHtml(state.name)}"
+>
+
+<div style="margin-top:14px;font-weight:bold">
+Choose Avatar
+</div>
+
+<div class="avatar-list">
+`;
+
+avatars.forEach(a=>{
+
+html+=`
+
+<button
+class="avatar-choice ${
+state.avatar===a
+?"selected":""
+}"
+onclick="chooseAvatar('${a}',this)">
+${a}
+</button>
+
+`;
+
+});
+
+html+=`
+
+</div>
+
+<button
+class="action"
+onclick="saveProfile()">
+Save Profile
+</button>
+`;
+
+openPopup(
+"Profile",
+html,
+false
+);
+
+}
 
 
-  const
- 
+/* SAFE TEXT */
+
+function escapeHtml(text){
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* AVATAR */
+
+let selectedAvatar=null;
+
+function chooseAvatar(a,button){
+
+selectedAvatar=a;
+
+document
+.querySelectorAll(".avatar-choice")
+.forEach(x=>
+x.classList.remove("selected")
+);
+
+button.classList.add("selected");
+
+}
+
+
+/* SAVE PROFILE */
+
+function saveProfile(){
+
+let name =
+$("nameInput").value.trim();
+
+if(!name){
+
+name="Player";
+
+}
+
+state.name=name;
+
+if(selectedAvatar){
+
+state.avatar=
+selectedAvatar;
+
+}
+
+save();
+
+closePopup();
+
+}
+
+
+/* DAILY REWARD */
+
+function dailyReward(){
+
+if(
+state.dailyReward &&
+Date.now()-state.dailyReward
+<86400000
+){
+
+openPopup(
+"🎁 Daily Reward",
+"<p>You already claimed today's reward.</p><p>Come back tomorrow!</p>"
+);
+
+return;
+
+}
+
+state.balance+=100;
+
+state.dailyReward=
+Date.now();
+
+state.missions.daily=true;
+
+save();
+
+openPopup(
+"🎁 Daily Reward",
+"<p>Congratulations!</p><p><b>+100 NEX</b> added to your balance.</p>"
+);
+
+}
+
+
+/* TAP */
+
+$("coin")
+.addEventListener(
+"pointerdown",
+function(e){
+
+if(state.energy<=0)
+return;
+
+state.balance+=
+state.perTap;
+
+state.energy--;
+
+state.taps++;
+
+if(
+state.taps>=100 &&
+!state.missions.tap100
+){
+
+state.balance+=100;
+
+state.missions.tap100=true;
+
+}
+
+if(
+state.taps>=500 &&
+!state.missions.tap500
+){
+
+state.balance+=500;
+
+state.missions.tap500=true;
+
+}
+
+let pop =
+document.createElement("div");
+
+pop.className=
+"tap-number";
+
+pop.textContent=
+"+"+state.perTap+" NEX";
+
+pop.style.left=
+(e.clientX-10)+"px";
+
+pop.style.top=
+(e.clientY-20)+"px";
+
+document.body.appendChild(pop);
+
+setTimeout(
+()=>pop.remove(),
+750
+);
+
+save();
+
+}
+);
+
+
+/* ENERGY */
+
+setInterval(
+function(){
+
+if(state.energy<1000){
+
+state.energy=
+Math.min(
+1000,
+state.energy+1
+);
+
+save();
+
+}
+
+},
+1000
+);
+
+
+/* UPGRADE */
+
+function openUpgrade(){
+
+let cost =
+state.level*1000;
+
+let html=`
+
+<p>
+Current Tap Power:
+<b>+${state.perTap} NEX</b>
+</p>
+
+<p>
+Next level:
+<b>+${state.perTap+1} NEX</b>
+</p>
+
+<p>
+Upgrade cost:
+<b>${cost.toLocaleString()} NEX</b>
+</p>
+
+<button
+class="action"
+onclick="upgrade()">
+🚀 Upgrade
+</button>
+`;
+
+openPopup(
+"🚀 Upgrade",
+html
+);
+
+}
+
+
+function upgrade(){
+
+let cost=
+state.level*1000;
+
+if(state.balance<cost){
+
+openPopup(
+"Not enough NEX",
+"<p>You need <b>"+
+cost.toLocaleString()+
+" NEX</b> to upgrade.</p>"
+);
+
+return;
+
+}
+
+state.balance-=cost;
+
+state.level++;
+
+state.perTap++;
+
+save();
+
+openUpgrade();
+
+}
+
+
+/* MISSIONS */
+
+function openMissions(){
+
+let html=`
+
+<div class="mission">
+
+<div class="mission-title">
+🪙 Tap 100 times
+</div>
+
+<div class="mission-progress">
+Progress:
+${Math.min(state.taps,100)} / 100
+</div>
+
+<div class="mission-reward">
+Reward: +100 NEX
+</div>
+
+</div>
+
+
+<div class="mission">
+
+<div class="mission-title">
+🔥 Tap 500 times
+</div>
+
+<div class="mission-progress">
+Progress:
+${Math.min(state.taps,500)} / 500
+</div>
+
+<div class="mission-reward">
+Reward: +500 NEX
+</div>
+
+</div>
+
+
+<div class="mission">
+
+<div class="mission-title">
+🎁 Claim Daily Reward
+</div>
+
+<div class="mission-progress">
+${
+state.missions.daily
+?"Completed ✓"
+:"Not completed"
+}
+</div>
+
+<div class="mission-reward">
+Reward: Daily bonus
+</div>
+
+</div>
+
+`;
+
+openPopup(
+"📋 Missions",
+html
+);
+
+}
+
+
+/* FRIENDS */
+
+function openFriends(){
+
+let code =
+"NX"+generateCode();
+
+let link =
+"https://t.me/NexoraTapBot?start="+code;
+
+let html=`
+
+<p>
+Invite friends and earn referral rewards.
+</p>
+
+<div class="referral">
+
+<b>Your referral code</b>
+
+<br><br>
+
+${code}
+
+</div>
+
+<div class="referral">
+
+<b>Your referral link</b>
+
+<br><br>
+
+${link}
+
+</div>
+
+<button
+class="action"
+onclick="copyReferral('${link}')">
+📋 Copy Referral Link
+</button>
+
+<p style="color:#9da7b7;font-size:12px">
+The referral system needs a backend to securely track real invited Telegram users.
+</p>
+
+`;
+
+openPopup(
+"👥 Friends",
+html
+);
+
+}
+
+
+function generateCode(){
+
+let id =
+localStorage.getItem(
+"nexora_ref"
+);
+
+if(!id){
+
+id=
+Math.random()
+.toString(36)
+.substring(2,9)
+.toUpperCase();
+
+localStorage.setItem(
+"nexora_ref",
+id
+);
+
+}
+
+return id;
+
+}
+
+
+function copyReferral(link){
+
+navigator.clipboard
+?.writeText(link);
+
+openPopup(
+"✅ Copied",
+"<p>Your referral link has been copied.</p>"
+);
+
+}
+
+
+/* WALLET */
+
+function openWallet(){
+
+let html=`
+
+<div style="text-align:center">
+
+<div style="font-size:50px">
+💼
+</div>
+
+<h3>NEXORA Wallet</h3>
+
+<div class="referral">
+Balance<br><br>
+<b style="font-size:24px">
+${Math.floor(state.balance).toLocaleString()}
+NEX
+</b>
+</div>
+
+<p style="color:#9da7b7">
+Your NEX balance is currently an
+in-game balance. Blockchain wallet
+integration can be added later.
+</p>
+
+</div>
+
+`;
+
+openPopup(
+"💼 Wallet",
+html
+);
+
+
+/* LEADERBOARD */
+
+}
+
+function openLeaderboard(){
+
+let html = `
+
+<div class="mission" style="text-align:center">
+
+<div style="font-size:40px">
+🏆
+</div>
+
+<h3>Global Leaderboard</h3>
+
+<p style="color:#9da7b7">
+The global leaderboard is not connected yet.
+</p>
+
+<p style="color:#9da7b7;font-size:13px">
+Your ranking will appear here when the
+Nexora server is connected.
+</p>
+
+</div>
+
+`;
+
+openPopup(
+"🏆 Leaderboard",
+html
+);
+
+
+/* STATISTICS */
+
+}
+
+function openStatistics(){
+
+let html=`
+
+<div class="mission">
+🪙 Total NEX
+<b style="float:right">
+${Math.floor(state.balance).toLocaleString()}
+</b>
+</div>
+
+<div class="mission">
+👆 Total Taps
+<b style="float:right">
+${state.taps.toLocaleString()}
+</b>
+</div>
+
+<div class="mission">
+⭐ Level
+<b style="float:right">
+${state.level}
+</b>
+</div>
+
+<div class="mission">
+⚡ Tap Power
+<b style="float:right">
++${state.perTap}
+</b>
+</div>
+
+`;
+
+openPopup(
+"📊 Statistics",
+html
+);
+
+
+/* POPUP */
+
+}
+
+function openPopup(
+title,
+content,
+showClose=true
+){
+
+$("popupTitle").textContent=
+title;
+
+$("popupContent").innerHTML=
+content;
+
+$("popup").style.display=
+"flex";
+
+}
+
+
+function closePopup(){
+
+$("popup").style.display=
+"none";
+
+}
+
+
+/* TELEGRAM NAME */
+
+if(
+tg &&
+tg.initDataUnsafe &&
+tg.initDataUnsafe.user &&
+!state.name
+){
+
+state.name=
+tg.initDataUnsafe.user.first_name ||
+"Player";
+
+save();
+
+}
+
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+  </html>
